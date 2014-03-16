@@ -147,7 +147,7 @@ public class MG_GenerateConveyorBelt : MonoBehaviour {
             numberOfTilesInDirection++;
         }
 
-        Instantiate(conveyorParts[3], new Vector3(8.682935f, currentPosition.y, 0), new Quaternion(0, 0, 0, 0));
+        Instantiate(conveyorParts[3], new Vector3(8.753906f, currentPosition.y, 0), new Quaternion(0, 0, 0, 0));
 
     }
 

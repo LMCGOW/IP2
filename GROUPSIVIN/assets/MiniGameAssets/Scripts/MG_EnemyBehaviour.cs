@@ -40,8 +40,7 @@ public class MG_EnemyBehaviour : MonoBehaviour {
 						HeadTowardTrash ();
 				}
 
-        DestroyEnemy();
-
+        
 	}
 
 	/// <summary>
@@ -80,6 +79,7 @@ public class MG_EnemyBehaviour : MonoBehaviour {
 
 
 
+
 	}
 
 	/// <summary>
@@ -107,6 +107,11 @@ public class MG_EnemyBehaviour : MonoBehaviour {
 								this.transform.position += new Vector3 (speed, 0, 0);
 
 						}
+
+					
+			RotateToFace();
+		
+
 				} else {
 
 			this.transform.position -= new Vector3(0, speed, 0);
@@ -122,15 +127,22 @@ public class MG_EnemyBehaviour : MonoBehaviour {
 
     }
 
-    void DestroyEnemy()
-    {
-
-        Vector2 mouseLocation = Input.mousePosition;
-
-    }
-
     void OnMouseDown()
     {
         Destroy(gameObject);
     }
+
+	/// <summary>
+	/// Rotates the enemy to face the trash.
+	/// </summary>
+	void RotateToFace(){
+
+		var newRotation = Quaternion.LookRotation(transform.position - trashFocus.transform.position, Vector3.forward);
+		
+		newRotation.x = 0.0f;
+		
+		newRotation.y = 0.0f;
+		
+		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 8);
+	}
 }

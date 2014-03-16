@@ -5,8 +5,6 @@ public class MG_CameraControl : MonoBehaviour {
 
     float speed = 0.5f;
 
-    float defaultSize = 3f;
-
     int minSize = 1;
     int maxSize = 15;
 
