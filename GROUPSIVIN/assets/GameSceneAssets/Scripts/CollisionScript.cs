@@ -20,7 +20,7 @@ public class CollisionScript : MonoBehaviour {
 
         if (collisionInfo.collider.tag == "Player")
         {
-			PlayerMovement.ChangeSpeed(-0.1f);
+			//PlayerMovement.ChangeSpeed(-0.1f);
             SpawnTrash.RemoveTrash();
             PlayerScore.ChangeScore(1);
             Destroy(gameObject);

@@ -3,9 +3,12 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-    static float speed = 4;
+    public float speed = 4;
+    public Vector2 vel;
 
 	public GameObject trash;
+
+    bool moving;
 
 	// Use this for initialization
 	void Start () {
@@ -26,12 +29,13 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 
-	public static void ResetSpeed()
+	public void ResetSpeed()
 	{
 		speed = 4;
 	}
 
-	public static void ChangeSpeed(float delta){
+	public void ChangeSpeed(float delta)
+    {
 
 		speed += delta;
 
@@ -40,20 +44,47 @@ public class PlayerMovement : MonoBehaviour {
 
     void MovePlayer()
     {
+        vel = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
+        if (vel.magnitude > 0)
+        {
+            moving = true;
+        }
+        rigidbody2D.velocity = vel;
+        /*
         if (Input.GetKey(KeyCode.W))
+        {
             this.rigidbody2D.velocity = (new Vector2(0, speed));
+            moving = true;
+        }
 
         else if (Input.GetKey(KeyCode.S))
+        {
             this.rigidbody2D.velocity = (new Vector2(0, -speed));
+            moving = true;
+        }
 
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
+        {
             this.rigidbody2D.velocity = (new Vector2(speed, 0));
+            moving = true;
+        }
 
         else if (Input.GetKey(KeyCode.A))
+        {
             this.rigidbody2D.velocity = (new Vector2(-speed, 0));
+            moving = true;
+        }
+        */
 
-        else
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W))
+        {
+            moving = false;
+        }
+
+        if (!moving)
+        {
             rigidbody2D.velocity = new Vector2(0, 0);
+        }
     }
 
     void LockCameraToPlayer()
@@ -69,11 +100,11 @@ public class PlayerMovement : MonoBehaviour {
         {
 			if(PlayerScore.Score >= 5)
 			{
-				PlayerMovement.ChangeSpeed(0.5f);
+				ChangeSpeed(0.5f);
 			}
 			else
 			{
-				PlayerMovement.ChangeSpeed(0.1f * PlayerScore.Score);
+				ChangeSpeed(0.1f * PlayerScore.Score);
 			}
 
 			PlayerScore.ChangeScore(-5);
